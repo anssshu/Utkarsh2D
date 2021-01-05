@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -15,19 +16,33 @@
 
 #define SDL_main main
 
+#include "input.hpp"
+#include "renderer.hpp"
+
+
+
 using namespace std;
 class Display
 {
     public:
     SDL_Window* window;
     SDL_Event event;
-
-    //Renderer* renderer;
-
-    void initDisplay(int WIDTH,int HEIGHT,const char* TITLE);
+    SDL_GLContext context;
+    bool quit = false;
+    Input input;
+    Renderer2D* renderer;
+    Display(int WIDTH,int HEIGHT,const char* TITLE);
+    
 
     void run();
 
     void cleanup();
+    
+    Rect* r;
+
+
+    private:
+    void initDisplay(int WIDTH,int HEIGHT,const char* TITLE);
+    void processInput(SDL_Event* event,bool* quit);
 
 };

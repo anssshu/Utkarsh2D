@@ -1,9 +1,5 @@
 
 
-load all the dependendencies
-
-create a basic SDL window
-
-and draw a triangle with gles3
+create  a sprite
 
 
