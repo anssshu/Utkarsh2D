@@ -26,7 +26,7 @@ class Model{
     Mesh mesh;//array of VAO and indices populated by the renderer
 
     vec3 pos = vec3(0.0);
-    vec3 rot = vec3(0.0);
+    vec3 rot = vec3(0.0,0.0,180.0);
     vec3 scale = vec3(1.0);
 
     mat4 model = mat4(1.0);

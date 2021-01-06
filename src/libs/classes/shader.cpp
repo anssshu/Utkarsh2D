@@ -34,6 +34,7 @@ void Shader::render()
 //for rgb falg ==0 ,for rgba flag =1
 void Shader::setModelViewProjectionMatrix(mat4 model,mat4 view ,mat4 projection)
 {
+    use();
     setUniformMat4("model",model);
     setUniformMat4("view",view);
     setUniformMat4("projection",projection);

@@ -127,6 +127,16 @@ void Model::update()
     {
         rot.z -= 1.0*speed;
     }
+
+    if (input->is_action_pressed("left"))
+    {
+         pos.x -= 0.10*speed;
+    }
+
+    if (input->is_action_pressed("right"))
+    {
+        pos.x += 0.10*speed;
+    }
 }
 
 void Model::loadModel()

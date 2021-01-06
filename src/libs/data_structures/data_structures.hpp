@@ -34,7 +34,12 @@ struct Vertex2D {
     
     // uv
     glm::vec2 TexCoords;
-    
+
+    //texture ID
+    float TextureID;
+
+    //color
+    glm::vec4 Color;
 };
 
 

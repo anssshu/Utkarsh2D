@@ -18,7 +18,7 @@
 
 #include "input.hpp"
 #include "renderer.hpp"
-
+#include "batch_renderer.hpp"
 
 
 using namespace std;
@@ -31,15 +31,13 @@ class Display
     bool quit = false;
     Input input;
     Renderer2D* renderer;
+    BatchRenderer* batch_renderer;
+
     Display(int WIDTH,int HEIGHT,const char* TITLE);
-    
-
     void run();
-
     void cleanup();
     
-    Rect* r;
-
+  
 
     private:
     void initDisplay(int WIDTH,int HEIGHT,const char* TITLE);

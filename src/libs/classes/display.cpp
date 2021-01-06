@@ -13,22 +13,23 @@ Display::Display(int WIDTH,int HEIGHT,const char* TITLE)
     input.e = &event;
 
     //create the renderer pointer
-    renderer = new Renderer2D();
-
+    //renderer = new Renderer2D();
+    
+    batch_renderer = new BatchRenderer();
     //create a scene
-    Scene* scene = new Scene();
+    //Scene* scene = new Scene();
 
     //create a model and add it to the scene
 
-    Model* plane = new Model("textures/mouse.jpg");
-    plane->input = &input;
-    scene->addModel(plane);
+    //Model* plane = new Model("textures/mouse.jpg");
+    //plane->input = &input;
+    //scene->addModel(plane);
 
     //add a scene to the renderer
-    renderer->addScene(scene);
+    //renderer->addScene(scene);
 
     //set the current scene and load it
-    renderer->loadScene(0);
+    batch_renderer->loadScene(0);
     //r = new Rect();
     
 }
@@ -104,7 +105,8 @@ void Display::run()
 
   
     //render here
-    renderer->renderScene();
+    //renderer->renderScene();
+    batch_renderer->renderScene();
     //shader->render();
     //r->shader->render();
    
@@ -124,7 +126,7 @@ void Display::cleanup()
 {
     /* Pauses all SDL subsystems for a variable amount of milliseconds */
     //SDL_Delay(DELAY);
-
+    delete batch_renderer;
     /* Frees memory */
     SDL_DestroyWindow(window);
   

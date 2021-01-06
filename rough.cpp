@@ -1,121 +1,42 @@
-#include <iostream>
-#include <cstdio>
-#include <cstdlib>
-#ifdef _WIN32
-#include <SDL/SDL.h> /* Windows-specific SDL2 library */
-#else
+//current_scene = scene_array[ID];
+            cam = new Camera();
+            //create a quad
+            Quad quad = Quad();
 
+            quad.mesh_data.vertices;
+            quad.mesh_data.indices;
+            vector<Vertex> quad_vertices = quad.mesh_data.vertices;
 
-#include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
-#include <SDL2/SDL_opengles2.h>
-#include <GLES3/gl3.h>
-#endif
+            mat4  transform = mat4(1.0);
+            transform = translate(transform,vec3(2.2,0.0,0.0));
+            
+            for (Vertex v:quad_vertices)
+            {
+                vec4 v_pos = transform*vec4(v.Position,1.0);
+                v.Position = vec3(v_pos.x/v_pos.w,v_pos.y/v_pos.w,v_pos.z/v_pos.w);
+                
+                quad.mesh_data.vertices.push_back(v);
+            } 
 
-/* Sets constants */
-#define WIDTH 800
-#define HEIGHT 600
-#define DELAY 3000
-#define SDL_main main
+            vector<unsigned int> quad_indices = quad.mesh_data.indices;
+            for (unsigned int  i = 0 ;i<quad_indices.size();i++)
+            {
+               
+                
+                quad.mesh_data.indices.push_back(quad_indices[i]+4);
+                  
+            }   
 
-using namespace std;
+            
+             
+            //create a mesh
+            Mesh mesh = createMesh(quad.mesh_data);
+            //load data from models and create a batch
 
-
-void processInput(SDL_Event* e,bool* quit);
-int SDL_main (int argc, char* argv[])
-{
-  /* Initialises data */
-  SDL_Window* window ;
-
-  SDL_GLContext context;
-  
-  /*
-  * Initialises the SDL video subsystem (as well as the events subsystem).
-  * Returns 0 on success or a negative error code on failure using SDL_GetError().
-  */
-
- if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    cout << stderr << "SDL failed to initialise:" << SDL_GetError();
-    return 1;
-  }
-
-atexit(SDL_Quit);
-
-//  Request OpenGL ES 3.0
-SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,SDL_GL_CONTEXT_PROFILE_ES);
-SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION,3);
-SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION,0);
-
-SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
-
-  /* Creates a SDL window */
- window = SDL_CreateWindow("SDL Example", /* Title of the SDL window */
-			    SDL_WINDOWPOS_UNDEFINED, /* Position x of the window */
-			    SDL_WINDOWPOS_UNDEFINED, /* Position y of the window */
-			    WIDTH, /* Width of the window in pixels */
-			    HEIGHT, /* Height of the window in pixels */
-			    SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN); /* Additional flag(s) */
-
-  /* Checks if window has been created; if not, exits program */
-  if (window == NULL) {
-    cout<< stderr << "SDL window failed to initialise:" << SDL_GetError();
-    return 1;
-  }
-
-  //create context
-  context = SDL_GL_CreateContext(window);
-  if (!context)
-  {
-      cout <<"context not created" ;
-  }
-  bool quit = false;
-  SDL_Event event;
-
-  //main loop
-  while(!quit)
-  {
-      
-
-     processInput(&event,&quit); 
-
-    //main loop
-    glClearColor(1.0,0.5,0.5,1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    
-
-
-    //SDL_PollEvent(&event);
-    SDL_GL_SwapWindow(window);
-  }
-
-  /* Pauses all SDL subsystems for a variable amount of milliseconds */
-  //SDL_Delay(DELAY);
-
-  /* Frees memory */
-  SDL_DestroyWindow(window);
-  
-  /* Shuts down all SDL subsystems */
-  SDL_Quit(); 
- 
-  return EXIT_SUCCESS;
-}
-
-
-//input processing through the event pointer
-void processInput(SDL_Event* event,bool* quit)
-{
-    if (SDL_PollEvent(event)!=0)
-      {
-          if (event->type == SDL_QUIT)
-          {
-              *quit = true;
-          }
-        
-         //keyboard events
-          if (event->type == SDL_KEYDOWN)
-          {
-              if (event->key.keysym.sym == SDLK_ESCAPE)
-              *quit = true;
-          }
-      }
-}
+            //create a sshader
+            shader = new Shader("shaders/model.vs","shaders/model.fs");
+            shader->setModelViewProjectionMatrix(mat4(1.0),cam->view,cam->projection);
+            shader->loadTextureData({25,"textures/wood.jpg","texture1"});
+            
+            
+            shader->loadVertexData(mesh);

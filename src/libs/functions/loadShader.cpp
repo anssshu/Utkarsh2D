@@ -16,7 +16,7 @@ unsigned int loadShader(string vertex_shader_path,string fragment_shader_path){
         int success;
         char infolog[512];
         glGetShaderiv(vertexShader,GL_COMPILE_STATUS,&success);
-        cout<<_vs_code<<endl;
+        //cout<<_vs_code<<endl;
         if (!success)
         {
             glGetShaderInfoLog(vertexShader,512,NULL,infolog);
