@@ -4,7 +4,7 @@
 #include "sprite.hpp"
 Batch::Batch()
 {
- 
+    camera = new Camera();
     
 }
 
@@ -13,6 +13,8 @@ Batch::Batch()
 
 void Batch::loadBatch()
 {
+    pause = false;
+    
     //load all the textures and texture atlas into the memory
     
 
@@ -109,7 +111,9 @@ void Batch::loadBatch()
 
 void Batch::renderBatch()
 {   
-    //update camera
+    if (!pause)
+    {
+        //update camera
     camera->updateCamera();
     update(); // update other things later added to it such as physics world
     updateQuads();
@@ -141,10 +145,16 @@ void Batch::renderBatch()
     glDrawElements(GL_TRIANGLES,6*quad_array.size(),GL_UNSIGNED_INT,0);
     glBindVertexArray(0);
     //(unsigned int)(sizeof(indices)/sizeof(unsigned int))
+    }
+    
 }
 
 void Batch::unloadBatch()
 {
+    pause = true;
+    
+    
+    
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteProgram(shaderProgram);
@@ -156,16 +166,13 @@ void Batch::unloadBatch()
         glDeleteTextures(1,&tex.second);
         cout << tex.first <<": unloaded from memory" << endl;
     }
+    
+    
+
 }
 Batch::~Batch()
 {
-    
-    this->unloadBatch();
-
     delete camera;
-
-    //delete input;
-    
     //delete each quad from the heap
     for(auto item:quad_array)
     {
@@ -173,6 +180,17 @@ Batch::~Batch()
         delete item;
         
     }
+    
+    this->unloadBatch();
+
+    
+    
+    
+    
+
+    //delete input;
+    
+    
     
     cout<<"Batch is unloaded" << endl;
 }
@@ -182,6 +200,7 @@ void Batch::addQuad(Quad* q)
 {
     //add quad to batch
     q->ID = quad_array.size();
+    cout<<q->ID<<endl;
     quad_array.push_back(q); 
 }
 

@@ -13,6 +13,7 @@ using namespace std;
 class Batch
 {
     public:
+    bool pause = false;
     Input* input;
     Camera* camera;
     
@@ -31,7 +32,7 @@ class Batch
 
     unsigned int VAO,VBO,EBO;
     Batch();
-    ~Batch();
+    virtual ~Batch();
    
     
     

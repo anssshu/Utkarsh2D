@@ -7,17 +7,17 @@
 #include "box2d-lite/Joint.h"
 
 #include "player.hpp"
-#include "enemy.hpp"
+#include "libs/functions/checkCollision.hpp"
 
 class MainBatch:public Batch
 {
     public:
-    Enemy* enemy;
+    int* foo;
+    Sprite* joe;
     Player* player;
-    World* b2_world;
-    Body *box,*base;
+    
     //Contact* c;
     MainBatch(Input* inp);
-    ~MainBatch();
+    virtual ~MainBatch();
     void update();
 };

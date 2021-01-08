@@ -37,6 +37,9 @@ Quad::Quad(float x ,float y ,float textureID)
     this->vertices = {v0,v1,v2,v3};
     this->_vertices = {v0,v1,v2,v3};
 
+    width = std::abs(v1.Position.x-v0.Position.x);
+    height = std::abs(v3.Position.y-v0.Position.y);
+
 }
 
 //update the position location and scale of each vertices

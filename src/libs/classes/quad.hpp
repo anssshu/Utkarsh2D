@@ -7,6 +7,8 @@ using namespace std;
 class Quad
 {
     public:
+    float width;
+    float height;
     unsigned int ID;
     //string texture_path; //texture path of the corresponding quad
     float vertex_texture_ID; //texture id for each vertices for use in fragment shader

@@ -19,15 +19,20 @@ Input::Input(SDL_Event* event)
 //connect the input map to the event pointer 
 bool Input::is_action_pressed(string key)
 {
+     
+     bool down = false;
+     
      if (e->type == SDL_KEYDOWN && e->key.keysym.sym == key_map.find(key)->second)
      {
 
-         return true;
+         down = true;
      }
-     else
+     else if (e->type == SDL_KEYUP && e->key.keysym.sym == key_map.find(key)->second)
      {
-         return false;
+         down =  false;
      }
+
+     return down;
      
      
 }

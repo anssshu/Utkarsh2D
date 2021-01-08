@@ -124,10 +124,15 @@ void Display::run()
 
 void Display::cleanup()
 {
+    
+    
     /* Pauses all SDL subsystems for a variable amount of milliseconds */
     //SDL_Delay(DELAY);
-    delete batch_renderer;
     delete input;
+    cout <<"display is dead "<<endl;
+    delete batch_renderer;
+    
+    //SDL_Delay(1000);
     /* Frees memory */
     SDL_DestroyWindow(window);
   

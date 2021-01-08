@@ -7,7 +7,9 @@ BatchRenderer::BatchRenderer()
 }
 BatchRenderer:: ~BatchRenderer()
 {
-    delete current_batch;
+   cout << "Batch renderer is dead" <<endl;
+   delete current_batch;
+     
 }
 
 void BatchRenderer::loadBatch(unsigned int ID)

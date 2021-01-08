@@ -4,7 +4,7 @@
 ///////////////////////////CAMERA  IMPLEMENTATION--------------------------------------------------------------
 Camera::Camera()
 {
-    pos = vec3(0,0.0,-10.0);
+    pos = vec3(0,0.0,-13.0);
     up = vec3(0.0,-1.0,0.0);
     target = vec3(0.0,0.0,0.0);
     model = glm::mat4(1.0);
@@ -13,6 +13,7 @@ Camera::Camera()
     model = glm::rotate(model,glm::radians(rot.y),glm::vec3(0.0,1.0,0.0));
     model = glm::rotate(model,glm::radians(rot.z),glm::vec3(0.0,0.0,1.0));
     view = lookAt(pos,target,up);
+    //fov = 40.0f;
     projection = glm::perspective(glm::radians(fov), (float)width /
 (float)height, near, far);
 }
@@ -72,7 +73,7 @@ void Camera::processInput()
         break;
     
     default:
-        fov = 45.0;
+        //fov = 40.0;
         break;
     }
 
@@ -80,7 +81,8 @@ void Camera::processInput()
 
     if (player)
     {
-        pos.x = player->pos.x;
+        //if (player->pos.x > -0.4 && player->pos.x < 0.4)
+       // pos.x = player->pos.x;
         //pos.y = player->pos.y;
     }
     

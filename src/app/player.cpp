@@ -7,21 +7,9 @@ float v = g*jump_time;
 
 Player::Player(float tex_id):Sprite(tex_id)
 {
-    //create the box 2d body
-
-    body = new Body();
-    body->Set(Vec2(1.0,1.0),100); //set bounds and mass
-    body->position.x = 0.0;
-    body->position.y = -2.5;
-    //body->rotation = rot;
-
-    //create the contact for collision detection
-    contact = new Contact();
-
-    //add body to the box 2d world;
-    //w->Add(body);
-    
+    pos.x = -2.0;
     uv_rect = {0.05,0.05,0.128,0.256};
+    //uv_rect = {0.05+0.128,0.05,0.128,0.256};
     updateUVRect(uv_rect);
 
     
@@ -29,33 +17,73 @@ Player::Player(float tex_id):Sprite(tex_id)
 
 void Player::update()
 {
+    
+    velocity.y +=g*1/60.0f ;
+    
+    //update position within limit
+    if (pos.x < 7.0 || pos.x >-7.0)
+    {
+        pos.x += velocity.x*1/60.0f;
+        pos.y += velocity.y*1/60.0f;
+    }
+   
+    
+    
+    if (pos.y>3.0)
+        {
+            on_ground = true;
+            pos.y = 3.0;
+            velocity.y = 0;
+        }
+    else if (pos.y<3.0)
+    {
+        on_ground = false;
+    }
+    
     //update pos and rot of the quad
-    pos.x=body->position.x;
-    pos.y=body->position.y;
+    //pos.x=body->position.x;
+    //pos.y=body->position.y;
     //rot=body->rotation;
+    
+    left  =  input->is_action_pressed("left");
+    right = input->is_action_pressed("right");
+    up = input->is_action_pressed("up");
+
 
     if (input->is_action_pressed("up") && on_ground)
     {
-         body->velocity.y = -v;
+         //body->velocity.y = -v;
+         velocity.y = -v;
     }
     
-
-    if (input->is_action_pressed("left"))
+    if(!left && !right )
+    
     {
-        //pos.x -= 0.1;
-        body->velocity.x = -10;
+        if(on_ground && !up )
+            //body->velocity.x = 0;
+            velocity.x = 0;
+            //velocity.y = 0;
+        //cout<< "keys up" <<endl;
     }
 
-    else if (input->is_action_pressed("right"))
+    else
     {
-        //pos.x += 0.1;
-        body->velocity.x = 10;
+        //cout<< "keys down" <<endl;
+
+        if (left )
+        {
+            //pos.x -= 0.1;
+            velocity.x = -10;
+            cout<< pos.x<<endl;
+        }
+
+        else if (right )
+        {
+            //pos.x += 0.1;
+            velocity.x = 10;
+        }
     }
-    else if(!input->is_action_pressed("right") && !input->is_action_pressed("left"))
-    {
-        if(on_ground)
-            body->velocity.x = 0;
-    }
+    
     
 
     if (input->is_action_pressed("down"))
