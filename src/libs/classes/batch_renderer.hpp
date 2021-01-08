@@ -1,32 +1,19 @@
 //combines all geometries into a single geometry and then renderes;
+#pragma once
 #include "scene.hpp"
 #include "batch.hpp"
-
+#include "input.hpp"
 class BatchRenderer
 {
     public:
-        vector<Scene*> scene_array;
-        Scene*  current_scene;
-        Shader* shader;
-        Camera* cam;
-        Batch* batch;
-        BatchRenderer()
-        {
-            batch = new Batch();
-        }
-        ~BatchRenderer()
-        {
-            delete batch;
-        }
-        
-        void loadScene(unsigned int ID)
-        {
-           
-            batch->loadBatch();
+        vector<Batch*> batch_array;
+        Batch*  current_batch;     
+        Input* input;
+        BatchRenderer();
+        ~BatchRenderer();
 
-        }
-        void renderScene()
-        {
-            batch->renderBatch();
-        }
+        void addBatch(Batch* batch);
+        void loadBatch(unsigned int ID);
+        void renderBatch();
+              
 };

@@ -6,12 +6,15 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
+#include "input.hpp"
+#include "sprite.hpp"
 using namespace std;
 using namespace glm;
 //-----------------------------------------------------------------------CAMERA 2D----------------------------------------------------------
 class Camera{
     public:
+    Sprite* player;
+    Input* input;
     glm::mat4 model;
     glm::mat4 view;
     glm::mat4 projection;
@@ -30,7 +33,7 @@ class Camera{
     ~Camera();
     
     void updateCamera();
-    
+    void processInput();
 
 
 

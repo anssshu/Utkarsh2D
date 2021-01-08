@@ -2,21 +2,23 @@
 #include "model.hpp"
 #include "shader.hpp"
 #include "../functions/createMesh.hpp"
-#include "rect.hpp"
+
 Display::Display(int WIDTH,int HEIGHT,const char* TITLE)
 {
     //first create the display
     initDisplay(WIDTH,HEIGHT,TITLE);
     
-    //create the input object and connect to the event
-    input = Input();
-    input.e = &event;
+    //create the input pointer  with the pointer of events on display
+    input = new Input(&event);
+    
 
     //create the renderer pointer
     //renderer = new Renderer2D();
     
     batch_renderer = new BatchRenderer();
-    //create a scene
+  
+    //r = new Rect();
+     //create a scene
     //Scene* scene = new Scene();
 
     //create a model and add it to the scene
@@ -29,8 +31,6 @@ Display::Display(int WIDTH,int HEIGHT,const char* TITLE)
     //renderer->addScene(scene);
 
     //set the current scene and load it
-    batch_renderer->loadScene(0);
-    //r = new Rect();
     
 }
 void Display::initDisplay(int WIDTH,int HEIGHT, const char* TITLE)
@@ -87,7 +87,7 @@ void Display::run()
 {
    
   
-    //Rect rect;
+   
     
    
     //main loop
@@ -97,7 +97,7 @@ void Display::run()
       
 
      //processInput(&event,&quit); 
-    input.processInput(&quit);
+    input->processInput(&quit);
 
     //main loop
     glClearColor(1.0,0.5,0.5,1.0);
@@ -106,7 +106,7 @@ void Display::run()
   
     //render here
     //renderer->renderScene();
-    batch_renderer->renderScene();
+    batch_renderer->renderBatch();
     //shader->render();
     //r->shader->render();
    
@@ -127,13 +127,14 @@ void Display::cleanup()
     /* Pauses all SDL subsystems for a variable amount of milliseconds */
     //SDL_Delay(DELAY);
     delete batch_renderer;
+    delete input;
     /* Frees memory */
     SDL_DestroyWindow(window);
   
     /* Shuts down all SDL subsystems */
     SDL_Quit(); 
 }
-
+/*
 void Display::processInput(SDL_Event* event,bool* quit)
 {
     if (SDL_PollEvent(event)!=0)
@@ -151,3 +152,4 @@ void Display::processInput(SDL_Event* event,bool* quit)
           }
       }
 }
+*/

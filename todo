@@ -1,7 +1,6 @@
-sdl image
 
-batch render 
 
-create  a sprite
+create a sprite object and connect it with the batch 
 
+every sprite has a quad;
 

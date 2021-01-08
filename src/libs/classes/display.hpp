@@ -19,6 +19,7 @@
 #include "input.hpp"
 #include "renderer.hpp"
 #include "batch_renderer.hpp"
+#include "batch.hpp"
 
 
 using namespace std;
@@ -29,7 +30,7 @@ class Display
     SDL_Event event;
     SDL_GLContext context;
     bool quit = false;
-    Input input;
+    Input* input ;
     Renderer2D* renderer;
     BatchRenderer* batch_renderer;
 

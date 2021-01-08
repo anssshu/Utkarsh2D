@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <array>
@@ -6,7 +7,8 @@ using namespace std;
 class Quad
 {
     public:
-    string texture_path; //texture path of the corresponding quad
+    unsigned int ID;
+    //string texture_path; //texture path of the corresponding quad
     float vertex_texture_ID; //texture id for each vertices for use in fragment shader
     array<Vertex2D,4> vertices; //all 4 vertices array 
     array<Vertex2D,4> _vertices;//original vertices
@@ -14,12 +16,13 @@ class Quad
     //pos rot scale
     vec2 pos = vec2(0.0,0.0);  
     vec2 scale = vec2(1.0,1.0);
-    float rot = 180.0;
+    float rot = 0.0;
 
-    Quad(float x = 0.0f ,float y = 0.0f,float vertex_texture_ID=0.0,string texture_path="");
+    Quad(float x = 0.0f ,float y = 0.0f,float vertex_texture_ID=0.0);
     void updateTransform();
 
-    void update();
+    virtual void update()=0;
+    void updateUVRect(Rect rect);
 
 
 };

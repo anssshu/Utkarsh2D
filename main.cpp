@@ -1,17 +1,17 @@
 
-#include "libs/classes/display.hpp"
+#include "app/app.hpp"
 
 
 int main()
 {
   //first create window and opengl context
-  Display* display = new Display(800,600,"SDL GLES3");
+  Application app;// = Display(800,600,"SDL GLES3");
 
-  display->run();
+  app.run();
 
-  display->cleanup();
+  app.cleanup();
 
-  delete display;
+  //delete display;
   
   
   return 0;

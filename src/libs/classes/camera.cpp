@@ -4,8 +4,8 @@
 ///////////////////////////CAMERA  IMPLEMENTATION--------------------------------------------------------------
 Camera::Camera()
 {
-    pos = vec3(0,0.0,3.0);
-    up = vec3(0.0,1.0,0.0);
+    pos = vec3(0,0.0,-10.0);
+    up = vec3(0.0,-1.0,0.0);
     target = vec3(0.0,0.0,0.0);
     model = glm::mat4(1.0);
     model = glm::translate(model,pos);
@@ -23,11 +23,16 @@ Camera::~Camera()
 }
 void Camera::updateCamera()
 {
-    //target.x = pos.x;
-    //target.y = pos.y;
+    
+    processInput();
+    target.x = pos.x;
+    target.y = pos.y;
+    
     view = lookAt(pos,target,up);
     projection = glm::perspective(glm::radians(fov), (float)width /
 (float)height, near, far);
+
+    
 }
 
 
@@ -48,4 +53,38 @@ void Camera::setUniforms(unsigned int shaderProgram)
     
 }
 
+void Camera::processInput()
+{
+    
+    int wheel = input->check_mouseWheel();
+   
+    
+    switch (wheel)
+    {
+    case 1:
+        fov += 0.2;
+        break;
+    case -1:
+        fov -= 0.2;
+        break;
+    case 0:
+        //fov = 45.0;
+        break;
+    
+    default:
+        fov = 45.0;
+        break;
+    }
+
+    //chase the player
+
+    if (player)
+    {
+        pos.x = player->pos.x;
+        //pos.y = player->pos.y;
+    }
+    
+
+    
+}
 

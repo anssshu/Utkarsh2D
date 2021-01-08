@@ -1,6 +1,6 @@
 #include "rect.hpp"
 
-Rect::Rect()
+Rect2::Rect2()
 {
     //top left
     v0.Position = vec3(-1.0f,1.0f,0.0f);

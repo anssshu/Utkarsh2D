@@ -1,8 +1,8 @@
 #include "quad.hpp"
 
-Quad::Quad(float x ,float y ,float textureID,string texture_path)
+Quad::Quad(float x ,float y ,float textureID)
 {
-    this->texture_path = texture_path;
+    //this->texture_path = texture_path;
     this->pos = vec2(x,y);
     this->vertex_texture_ID = textureID;
 
@@ -59,8 +59,16 @@ void Quad::updateTransform()
     }
     
 }
-
+/*
 void Quad::update()
 {
-    rot += 1.0;
+    //rot += 1.0;
+}
+*/
+void Quad::updateUVRect(Rect r)
+{
+    this->vertices[0].TexCoords = vec2(r.x,r.y+r.height);
+    this->vertices[1].TexCoords = vec2(r.x+r.width,r.y+r.height);
+    this->vertices[2].TexCoords = vec2(r.x+r.width,r.y);
+    this->vertices[3].TexCoords = vec2(r.x,r.y);
 }

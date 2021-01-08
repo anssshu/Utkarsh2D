@@ -1,7 +1,7 @@
 #pragma once
 
 #include "scene.hpp"
-#include "rect.hpp"
+
 class Renderer2D
 {   
     public:
