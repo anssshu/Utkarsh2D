@@ -9,6 +9,7 @@
 #include "quad.hpp"
 #include  <string>
 #include "input.hpp"
+using namespace glm;
 using namespace std;
 class Batch
 {

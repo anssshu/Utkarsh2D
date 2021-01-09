@@ -1,8 +1,6 @@
 //player inherits from the sprite class
 #pragma once
 #include "libs/classes/sprite.hpp"
-#include "box2d-lite/Body.h"
-#include "box2d-lite/World.h"
 
 class Player:public Sprite
 {

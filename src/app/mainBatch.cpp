@@ -5,23 +5,23 @@ MainBatch::MainBatch(Input* inp):Batch()
 {
     // PHYSICS
     
-float H = 5;
-float jump_time=0.5;
-float g = 2*H/jump_time;
-float v = g*jump_time;
-
-float timeStep = 1.0f / 60.0f;
-int iterations = 10;
 
 
+//Audio
+//Mix_Music *gMusic = NULL;
+Mix_Music* gMusic = Mix_LoadMUS( "res/audio/back.mp3" );
 
+ 
+cout << "music not playing" ;
+    //Play the music
+Mix_PlayMusic( gMusic, 0 );
 
 
 //ADD ALL TEXTURES TO CONTAINER 
 
-addtexture("textures/mouse.jpg");//0 //parallax background layer-------texture1[0] at vetex shader //back ground sprite will not be effected by the model view and projection matrix
-addtexture("textures/wood.jpg");//1  //add a map texture
-addtexture("textures/spritesheet.jpeg");//2   //sprite sheet  //single texture atlas
+addtexture("res/textures/mouse.jpg");//0 //parallax background layer-------texture1[0] at vetex shader //back ground sprite will not be effected by the model view and projection matrix
+addtexture("res/textures/wood.jpg");//1  //add a map texture
+addtexture("res/textures/spritesheet.jpeg");//2   //sprite sheet  //single texture atlas
 
 
 // TEXTURE ATLAS QUAD
@@ -53,9 +53,9 @@ map->setRot(0.0f);
 
 // PLAYER
 //create a main character
-player = new Player(2.0f);
-player->input = inp;//for input processing
-camera->player = player;//for camera tracking
+hero= new Player(2.0f);
+hero->input = inp;//for input processing
+camera->player = hero;//for camera tracking
 
 
 //CHAR
@@ -64,13 +64,16 @@ joe = new Sprite(2.0,char2_uv);
 joe->pos.y = 3;
 addQuad(joe);
 
+//ENEMY
+
+miku = new Enemy(2.0f);
 
 
 
 // POPULATE QUAD CONTAINER OF THE BATCH
 
-addQuad(player);
-
+addQuad(hero);
+addQuad(miku);
 addQuad(map);
 addQuad(bg);
 
@@ -92,7 +95,7 @@ void MainBatch::update()
     
    
     
-    bool col = checkCollision(player,joe);
+    bool col = checkCollision(hero,joe);
     if (col){
         cout << "player collided with joe" << endl;
     }

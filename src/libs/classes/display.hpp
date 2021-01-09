@@ -9,6 +9,7 @@
 
 #include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
 #include <SDL2/SDL_opengles2.h>
+#include <SDL2/SDL_mixer.h>
 #include <GLES3/gl3.h>
 #endif
 

@@ -6,3 +6,4 @@ class Application:public Display
     public:
     Application();
 };
+

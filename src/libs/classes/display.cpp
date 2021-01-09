@@ -38,7 +38,7 @@ void Display::initDisplay(int WIDTH,int HEIGHT, const char* TITLE)
     
 
     //init SDL
-        if (SDL_Init(SDL_INIT_VIDEO) != 0)
+        if (SDL_Init(SDL_INIT_VIDEO| SDL_INIT_AUDIO) != 0)
     {
         cout << stderr << "SDL failed to initialise:" << SDL_GetError();
         
@@ -76,6 +76,14 @@ void Display::initDisplay(int WIDTH,int HEIGHT, const char* TITLE)
     if (!context)
     {
         cout <<"context not created" ;
+    }
+
+    
+    //Initialize SDL_mixer
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+    {
+        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        //success = false;
     }
     
 
@@ -135,6 +143,10 @@ void Display::cleanup()
     //SDL_Delay(1000);
     /* Frees memory */
     SDL_DestroyWindow(window);
+
+
+    Mix_Quit();
+    IMG_Quit();
   
     /* Shuts down all SDL subsystems */
     SDL_Quit(); 

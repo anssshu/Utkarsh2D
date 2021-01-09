@@ -70,7 +70,7 @@ void Batch::loadBatch()
     
     //create a shader
 
-    shaderProgram = loadShader("shaders/sprite.vs","shaders/sprite.fs");
+    shaderProgram = loadShader("res/shaders/sprite.vs","res/shaders/sprite.fs");
 
     //load all textures from textures and upload it to texture map
     for (unsigned int i=0;i<textures.size();i++)
@@ -84,8 +84,8 @@ void Batch::loadBatch()
     }
     //load all the textures from the texture_map of the batch
     
-    cout<<texture_map["textures/spritesheet.jpeg"]<<endl;
-    cout<<texture_map["textures/mouse.jpg"]<<endl;
+    //cout<<texture_map["textures/spritesheet.jpeg"]<<endl;
+    //cout<<texture_map["textures/mouse.jpg"]<<endl;
     //texture1 = loadTexture("textures/wood.jpg");   
     //unsigned int texture2 = loadTexture("textures/mouse.jpg");
     //textures.push_back(texture1);
