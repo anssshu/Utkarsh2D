@@ -97,8 +97,10 @@ void MainBatch::update()
     
     bool col = checkCollision(hero,joe);
     if (col){
-        cout << "player collided with joe" << endl;
+        hero->hit_by_enemy = true;
+        //cout << "player collided with joe" << endl;
     }
+    hero->hit_by_enemy = false;
     
     
     // COLLISION WITH BULLET

@@ -17,7 +17,14 @@ Player::Player(float tex_id):Sprite(tex_id)
 
 void Player::update()
 {
+    //cpllosion code
     
+    if (hit_by_enemy)
+    {
+        cout << "joe hit me" <<endl;
+    }
+    
+    //motion code
     velocity.y +=g*1/60.0f ;
     
     //update position within limit
